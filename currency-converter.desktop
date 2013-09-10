@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Currency Converter
-Comment=My project description
+Comment=Convert currencies using the European Central Bank’s data.
 Exec=/usr/bin/qmlscene $@ /usr/share/currency-converter/currency-converter.qml
 Icon=qmlscene
 Terminal=false

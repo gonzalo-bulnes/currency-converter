@@ -22,5 +22,20 @@ MainView {
     Page {
         title: i18n.tr("Currency Converter")
 
+        ListModel {
+            id: currencies
+            ListElement {
+                currency: "EUR"
+                rate: 1.0
+            }
+
+            function getCurrency(idx) {
+                return (idx >= 0 && idx < count) ? get(idx).currency: ""
+            }
+
+            function getRate(idx) {
+                return (idx >= 0 && idx < count) ? get(idx).rate: 0.0
+            }
+        }
     }
 }
