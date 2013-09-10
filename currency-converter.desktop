@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=currency-converter
+Name=Currency Converter
 Comment=My project description
 Exec=/usr/bin/qmlscene $@ /usr/share/currency-converter/currency-converter.qml
 Icon=qmlscene
