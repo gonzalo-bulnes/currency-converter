@@ -56,5 +56,10 @@ MainView {
             XmlRole { name: "currency"; query: "@currency/string()" }
             XmlRole { name: "rate"; query: "@rate/string()" }
         }
+
+        ActivityIndicator {
+            anchors.right: parent.right
+            running: ratesFetcher.status === XmlListModel.Loading
+        }
     }
 }
