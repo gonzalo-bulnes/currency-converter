@@ -102,5 +102,83 @@ MainView {
                 }
             }
         }
+
+        Column {
+            id: pageLayout
+
+            anchors {
+                fill: parent
+                margins: root.margins
+            }
+            spacing: units.gu(1)
+
+            Row {
+                spacing: units.gu(1)
+
+                Button {
+                    id: selectorFrom
+                    property int currencyIndex: 0
+                    property TextField input: inputFrom
+                    text: currencies.getCurrency(currencyIndex)
+                    onClicked: PopupUtils.open(currencySelector, selectorFrom)
+                }
+
+                TextField {
+                    id: inputFrom
+                    errorHighlight: false
+                    validator: DoubleValidator {notation: DoubleValidator.StandardNotation}
+                    width: pageLayout.width - 2 * root.margins - root.buttonWidth
+                    height: units.gu(5)
+                    font.pixelSize: FontUtils.sizeToPixels("medium")
+                    text: '0.0'
+                    onTextChanged: {
+                        if (activeFocus) {
+                            inputTo.text = convert(inputFrom.text, selectorFrom.currencyIndex, selectorTo.currencyIndex)
+                        }
+                    }
+                    function update() {
+                        text = convert(inputTo.text, selectorTo.currencyIndex, selectorFrom.currencyIndex)
+                    }
+                }
+            }
+
+            Row {
+                spacing: units.gu(1)
+                Button {
+                    id: selectorTo
+                    property int currencyIndex: 1
+                    property TextField input: inputTo
+                    text: currencies.getCurrency(currencyIndex)
+                    onClicked: PopupUtils.open(currencySelector, selectorTo)
+                }
+
+                TextField {
+                    id: inputTo
+                    errorHighlight: false
+                    validator: DoubleValidator {notation: DoubleValidator.StandardNotation}
+                    width: pageLayout.width - 2 * root.margins - root.buttonWidth
+                    height: units.gu(5)
+                    font.pixelSize: FontUtils.sizeToPixels("medium")
+                    text: '0.0'
+                    onTextChanged: {
+                        if (activeFocus) {
+                            inputFrom.text = convert(inputTo.text, selectorTo.currencyIndex, selectorFrom.currencyIndex)
+                        }
+                    }
+                    function update() {
+                        text = convert(inputFrom.text, selectorFrom.currencyIndex, selectorTo.currencyIndex)
+                    }
+                }
+            }
+
+            Button {
+                text: i18n.tr("Clear")
+                width: units.gu(12)
+                onClicked: {
+                    inputTo.text = '0.0';
+                    inputFrom.text = '0.0';
+                }
+            }
+        }
     }
 }
