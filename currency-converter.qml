@@ -20,6 +20,13 @@ MainView {
     property real margins: units.gu(2)
     property real buttonWidth: units.gu(9)
 
+    function convert(from, fromRateIndex, toRateIndex) {
+        var fromRate = currencies.getRate(fromRateIndex);
+        if (from.length <= 0 || fromRate <= 0.0)
+            return "";
+        return currencies.getRate(toRateIndex) * (parseFloat(from) / fromRate);
+    }
+
     Page {
         title: i18n.tr("Currency Converter")
 
