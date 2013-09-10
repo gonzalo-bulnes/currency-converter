@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import QtQuick.XmlListModel 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.ListItems 0.1
+import Ubuntu.Components.Popups 0.1
 
 /*!
     \brief MainView with a Title.
@@ -67,6 +69,38 @@ MainView {
         ActivityIndicator {
             anchors.right: parent.right
             running: ratesFetcher.status === XmlListModel.Loading
+        }
+
+        Component {
+            id: currencySelector
+            Popover {
+                Column {
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        right: parent.right
+                    }
+                    height: pageLayout.height
+                    Header {
+                        id: header
+                        text: i18n.tr("Select currency")
+                    }
+                    ListView {
+                        clip: true
+                        width: parent.width
+                        height: parent.height - header.height
+                        model: currencies
+                        delegate: Standard {
+                            text: currency
+                            onClicked: {
+                                caller.currencyIndex = index
+                                caller.input.update()
+                                hide()
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
